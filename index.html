@@ -3,49 +3,583 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⚡ TOP-GAMES 2026 | Взломы и Моды</title>
+    <title>GAM-PLAY X | Твой вход в мир Взломов 2026</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { font-family: 'Arial Black', sans-serif; background: #050505; color: #fff; margin: 0; padding: 0; }
-        .header { background: linear-gradient(90deg, #ff00ff, #00ffff); padding: 20px; text-align: center; text-transform: uppercase; letter-spacing: 2px; box-shadow: 0 0 20px #ff00ff; }
-        .container { padding: 20px; display: flex; flex-wrap: wrap; justify-content: center; }
-        .game-card { background: #111; border: 2px solid #333; border-radius: 20px; width: 300px; margin: 15px; overflow: hidden; transition: 0.3s; position: relative; }
-        .game-card:hover { transform: scale(1.05); border-color: #00ffff; box-shadow: 0 0 15px #00ffff; }
-        .game-img { width: 100%; height: 180px; background: #222; display: flex; align-items: center; justify-content: center; font-size: 40px; }
-        .game-info { padding: 15px; text-align: center; }
-        .download-btn { background: #00ff00; color: #000; padding: 15px; text-decoration: none; border-radius: 10px; font-weight: bold; display: block; margin-top: 10px; font-size: 18px; }
-        .pass-info { font-size: 12px; color: #aaa; margin-top: 10px; }
-        .tg-link { color: #00ffff; text-decoration: none; font-weight: bold; }
+        :root {
+            --neon: #00f2ff;
+            --neon-alt: #ff0055;
+            --bg: #050507;
+            --card-bg: #111116;
+            --text: #ffffff;
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+
+        * { box-sizing: border-box; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Orbitron', sans-serif; /* Для геймерского стиля можно подключить шрифт */
+            font-family: 'Segoe UI', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Анимированный фон */
+        #bg-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            z-index: -1;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle at center, #111 0%, #050507 100%);
+        }
+
+        /* Header */
+        header {
+            padding: 80px 20px;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(0,242,255,0.1) 0%, transparent 100%);
+            border-bottom: 1px solid var(--glass);
+        }
+
+        .glitch-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo {
+            font-size: 5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            color: white;
+            position: relative;
+            text-shadow: 2px 2px var(--neon-alt), -2px -2px var(--neon);
+            animation: breathe 3s infinite alternate;
+        }
+
+        @keyframes breathe {
+            from { opacity: 0.8; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); text-shadow: 5px 5px var(--neon-alt), -5px -5px var(--neon); }
+        }
+
+        /* Поиск и Фильтры */
+        .search-section {
+            max-width: 800px;
+            margin: -30px auto 40px;
+            padding: 0 20px;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 20px 30px;
+            background: var(--card-bg);
+            border: 2px solid var(--glass);
+            border-radius: 50px;
+            color: white;
+            font-size: 1.2rem;
+            outline: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .search-bar:focus { border-color: var(--neon); box-shadow: 0 0 20px rgba(0,242,255,0.4); }
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 25px;
+            background: var(--glass);
+            border: 1px solid var(--glass);
+            border-radius: 30px;
+            color: #aaa;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .filter-btn.active { background: var(--neon); color: black; border-color: var(--neon); }
+
+        /* Сетка игр */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            padding: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 25px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--glass);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-15px) rotate(1deg);
+            border-color: var(--neon);
+            box-shadow: 0 20px 40px rgba(0, 242, 255, 0.2);
+        }
+
+        .card-img {
+            height: 200px;
+            background: #222;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .card-img::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 50%;
+            background: linear-gradient(to top, var(--card-bg), transparent);
+        }
+
+        .hot-badge {
+            position: absolute;
+            top: 20px; right: 20px;
+            background: var(--neon-alt);
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            z-index: 5;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 0, 85, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 0, 85, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 0, 85, 0); }
+        }
+
+        .card-body { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+
+        .card-title { font-size: 1.6rem; margin: 0 0 10px 0; color: #fff; }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--glass);
+        }
+
+        .stats i { color: var(--neon); margin-right: 5px; }
+
+        .description { color: #aaa; font-size: 0.9rem; line-height: 1.6; margin-bottom: 25px; height: 75px; overflow: hidden; }
+
+        .download-btn {
+            background: var(--neon);
+            color: black;
+            text-decoration: none;
+            padding: 18px;
+            border-radius: 15px;
+            text-align: center;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: block;
+            box-shadow: 0 5px 15px rgba(0, 242, 255, 0.3);
+        }
+
+        .download-btn:hover { background: white; transform: scale(1.02); box-shadow: 0 0 30px white; }
+
+        .tg-info {
+            margin-top: 15px;
+            padding: 12px;
+            background: rgba(0, 136, 204, 0.1);
+            border-radius: 10px;
+            text-align: center;
+            font-size: 0.85rem;
+            border: 1px dashed #0088cc;
+        }
+
+        .tg-info a { color: #0088cc; text-decoration: none; font-weight: bold; }
+
+        /* Секция Шаги */
+        .steps {
+            background: var(--card-bg);
+            padding: 60px 20px;
+            margin-top: 50px;
+        }
+
+        .steps-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .step-item { text-align: center; }
+        .step-icon {
+            width: 80px; height: 80px;
+            background: var(--glass);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            color: var(--neon);
+            border: 2px solid var(--neon);
+        }
+
+        /* Имитация Комментариев */
+        .reviews { padding: 60px 20px; max-width: 1200px; margin: 0 auto; }
+        .review-card {
+            background: var(--glass);
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            border-left: 5px solid var(--neon);
+        }
+
+        /* Footer */
+        footer {
+            padding: 100px 20px 40px;
+            text-align: center;
+            background: linear-gradient(0deg, #000 0%, transparent 100%);
+        }
+
+        .footer-logo { font-size: 2rem; color: var(--neon); font-weight: 900; margin-bottom: 20px; }
+
+        .social-links { font-size: 2rem; gap: 30px; display: flex; justify-content: center; margin-bottom: 30px; }
+        .social-links a { color: white; transition: 0.3s; }
+        .social-links a:hover { color: var(--neon); transform: scale(1.2); }
+
+        /* Модалка (имитация загрузки) */
+        .modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: none; /* Скрыта по умолчанию */
+            align-items: center; justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 30px;
+            text-align: center;
+            max-width: 500px;
+            border: 2px solid var(--neon);
+        }
+
+        .loader {
+            width: 100%; height: 10px;
+            background: #222;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .loader-bar {
+            width: 0%; height: 100%;
+            background: var(--neon);
+            animation: load 3s forwards;
+        }
+
+        @keyframes load { to { width: 100%; } }
+
+        /* Редактирование текста для школьника */
+        .online-count {
+            position: fixed;
+            bottom: 20px; right: 20px;
+            background: rgba(0, 255, 0, 0.2);
+            border: 1px solid #0f0;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            color: #0f0;
+            z-index: 100;
+        }
+        .dot { height: 8px; width: 8px; background: #0f0; border-radius: 50%; display: inline-block; margin-right: 8px; animation: blink 1s infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🚀 ГЕЙМЕРСКИЙ СКЛАД 2026</h1>
-        <p>Прямые ссылки без вирусов и лагов</p>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="online-count">
+        <span class="dot"></span> СЕЙЧАС НА САЙТЕ: <span id="user-count">482</span>
     </div>
 
-    <div class="container">
-        <div class="game-card">
-            <div class="game-img">🌵</div>
-            <div class="game-info">
-                <h3>BRAWL STARS (MOD)</h3>
-                <p>Бесконечные гемы + рабочий онлайн в РФ</p>
-                <a href="https://tech-point26.ru/s/ССЫЛКА_ИЗ_NEXTCLOUD/download" class="download-btn">СКАЧАТЬ APK</a>
-                <p class="pass-info">🔓 Пароль от архива в ТГ: <a href="https://t.me/твой_канал" class="tg-link">@твой_канал</a></p>
-            </div>
+    <header>
+        <div class="glitch-wrapper">
+            <div class="logo">GAM-PLAY</div>
         </div>
+        <p class="promo">Лучший приватный архив взломов в RU-сегменте. Версия 2.6.1</p>
+    </header>
 
-        <div class="game-card">
-            <div class="game-img">⛏️</div>
-            <div class="game-info">
-                <h3>MINECRAFT 1.22</h3>
-                <p>Полная версия + все скины открыты</p>
-                <a href="#" class="download-btn">СКАЧАТЬ БЕСПЛАТНО</a>
-            </div>
+    <div class="search-section">
+        <input type="text" class="search-bar" id="gameSearch" placeholder="Найти игру (Brawl, Minecraft, Roblox...)...">
+        <div class="filters">
+            <button class="filter-btn active" onclick="filterGames('all')">Все игры</button>
+            <button class="filter-btn" onclick="filterGames('vzlom')">Взломы</button>
+            <button class="filter-btn" onclick="filterGames('premium')">Premium</button>
+            <button class="filter-btn" onclick="filterGames('mods')">Мод Меню</button>
         </div>
     </div>
 
-    <div style="text-align: center; padding: 40px; color: #444;">
-        <p>© 2026 TOP-GAMES. Все файлы предоставлены для ознакомления.</p>
+    <div class="grid" id="gameGrid">
+        
+        <div class="card" data-type="vzlom">
+            <div class="hot-badge">TOP 1</div>
+            <div class="card-img">🌵</div>
+            <div class="card-body">
+                <h3 class="card-title">Brawl Stars Mod</h3>
+                <div class="stats">
+                    <span><i class="fas fa-download"></i> 1.2M</span>
+                    <span><i class="fas fa-file-archive"></i> 480 MB</span>
+                    <span><i class="fas fa-check-circle"></i> V 54.298</span>
+                </div>
+                <p class="description">Бесконечные гемы, монеты и кубки. Все бойцы и скины разблокированы. Работает через встроенный VPN!</p>
+                <a href="ТВОЯ_ССЫЛКА_ТУТ" class="download-btn" onclick="startDownload(event)">СКАЧАТЬ ВЗЛОМ</a>
+                <div class="tg-info">
+                    🔐 Пароль в ТГ: <a href="https://t.me/ТВОЙ_КАНАЛ">@ТВОЙ_КАНАЛ</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-type="premium">
+            <div class="hot-badge">NEW</div>
+            <div class="card-img">⛏️</div>
+            <div class="card-body">
+                <h3 class="card-title">Minecraft PE 1.22</h3>
+                <div class="stats">
+                    <span><i class="fas fa-download"></i> 890K</span>
+                    <span><i class="fas fa-file-archive"></i> 650 MB</span>
+                    <span><i class="fas fa-check-circle"></i> FULL</span>
+                </div>
+                <p class="description">Оригинальная версия со всеми мобами и биомами. Мультиплеер доступен. Скины и текстуры - Бесплатно!</p>
+                <a href="ТВОЯ_ССЫЛКА_ТУТ" class="download-btn" onclick="startDownload(event)">СКАЧАТЬ FULL</a>
+                <div class="tg-info">
+                    🔐 Пароль в ТГ: <a href="https://t.me/ТВОЙ_КАНАЛ">@ТВОЙ_КАНАЛ</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-type="mods">
+            <div class="card-img">🤖</div>
+            <div class="card-body">
+                <h3 class="card-title">Roblox Mod Menu</h3>
+                <div class="stats">
+                    <span><i class="fas fa-download"></i> 2.1M</span>
+                    <span><i class="fas fa-file-archive"></i> 120 MB</span>
+                    <span><i class="fas fa-check-circle"></i> V 2.615</span>
+                </div>
+                <p class="description">Fly Mode, Wallhack, GodMode и авто-фарм в любом плейсе. Анти-бан система 2026 года.</p>
+                <a href="ТВОЯ_ССЫЛКА_ТУТ" class="download-btn" onclick="startDownload(event)">СКАЧАТЬ MOD</a>
+                <div class="tg-info">
+                    🔐 Пароль в ТГ: <a href="https://t.me/ТВОЙ_КАНАЛ">@ТВОЙ_КАНАЛ</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-type="vzlom">
+            <div class="card-img">⚽</div>
+            <div class="card-body">
+                <h3 class="card-title">FIFA Mobile 26</h3>
+                <div class="stats">
+                    <span><i class="fas fa-download"></i> 400K</span>
+                    <span><i class="fas fa-file-archive"></i> 1.2 GB</span>
+                    <span><i class="fas fa-check-circle"></i> MOD</span>
+                </div>
+                <p class="description">Бесконечные FIFA Points и монеты. Умный бот для побед в Division Rivals.</p>
+                <a href="ТВОЯ_ССЫЛКА_ТУТ" class="download-btn" onclick="startDownload(event)">СКАЧАТЬ APK</a>
+                <div class="tg-info">
+                    🔐 Пароль в ТГ: <a href="https://t.me/ТВОЙ_КАНАЛ">@ТВОЙ_КАНАЛ</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-type="mods">
+            <div class="card-img">🏎️</div>
+            <div class="card-body">
+                <h3 class="card-title">CarX Highway</h3>
+                <div class="stats">
+                    <span><i class="fas fa-download"></i> 150K</span>
+                    <span><i class="fas fa-file-archive"></i> 550 MB</span>
+                    <span><i class="fas fa-check-circle"></i> MOD</span>
+                </div>
+                <p class="description">Все машины куплены и прокачаны на максимум. Открыта вся карта.</p>
+                <a href="ТВОЯ_ССЫЛКА_ТУТ" class="download-btn" onclick="startDownload(event)">СКАЧАТЬ MOD</a>
+                <div class="tg-info">
+                    🔐 Пароль в ТГ: <a href="https://t.me/ТВОЙ_КАНАЛ">@ТВОЙ_КАНАЛ</a>
+                </div>
+            </div>
+        </div>
+
     </div>
+
+    <div class="steps">
+        <h2 style="text-align:center; color: var(--neon); font-size: 2.5rem; margin-bottom: 50px;">КАК УСТАНОВИТЬ?</h2>
+        <div class="steps-container">
+            <div class="step-item">
+                <div class="step-icon">1</div>
+                <h3>Скачай файл</h3>
+                <p>Нажми кнопку скачать и дождись загрузки APK архива.</p>
+            </div>
+            <div class="step-item">
+                <div class="step-icon">2</div>
+                <h3>Зайди в ТГ</h3>
+                <p>Подпишись на наш канал, чтобы забрать секретный пароль.</p>
+            </div>
+            <div class="step-item">
+                <div class="step-icon">3</div>
+                <h3>Распакуй</h3>
+                <p>Используй пароль, установи игру и наслаждайся взломом!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="reviews">
+        <h2 style="color: var(--neon);">ОТЗЫВЫ ЧИТЕРОВ 😎</h2>
+        <div class="review-card">
+            <strong>Danya_Pro_2014:</strong> Всё четко! Бравл реально со всеми гемами, наконец-то выбил Леона! Ссылка прямая, скачалось быстро.
+        </div>
+        <div class="review-card">
+            <strong>Maks_Game:</strong> Лучший сайт, пароль в телеге нашел за 5 секунд. Роблокс реально с читами работает, в адопт ми летаю!
+        </div>
+        <div class="review-card" style="opacity: 0.6;">
+            <strong>Admin_Support:</strong> Новые обновления модов выходят каждую пятницу!
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-logo">GAM-PLAY X</div>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-telegram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-vk"></i></a>
+        </div>
+        <p>Техническая поддержка: support@gam-play-2026.ru</p>
+        <p style="margin-top:20px; color: #333;">Данный сайт не является официальным ресурсом разработчиков игр. Все материалы взяты из открытых источников.</p>
+    </footer>
+
+    <div class="modal" id="downloadModal">
+        <div class="modal-content">
+            <h2 id="modal-status">ПРОВЕРКА ФАЙЛА...</h2>
+            <div class="loader">
+                <div class="loader-bar"></div>
+            </div>
+            <p id="modal-tip">Подожди, система проверяет архив на наличие вирусов (0/54)</p>
+            <p style="color: #666; font-size: 0.8rem;">Антивирус: Kaspersky Cloud Verified ✅</p>
+        </div>
+    </div>
+
+    <script>
+        // Имитация живого фона (Matrix)
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        for(let i=0; i<50; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 2,
+                speedX: Math.random() * 1 - 0.5,
+                speedY: Math.random() * 1 - 0.5
+            });
+        }
+
+        function animate() {
+            ctx.clearRect(0,0, canvas.width, canvas.height);
+            ctx.fillStyle = 'rgba(0, 242, 255, 0.3)';
+            particles.forEach(p => {
+                p.x += p.speedX; p.y += p.speedY;
+                if(p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+                if(p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
+                ctx.fill();
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Живой поиск
+        document.getElementById('gameSearch').addEventListener('input', function(e) {
+            const val = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                const title = card.querySelector('.card-title').innerText.toLowerCase();
+                card.style.display = title.includes(val) ? 'flex' : 'none';
+            });
+        });
+
+        // Фильтрация
+        function filterGames(category) {
+            const cards = document.querySelectorAll('.card');
+            const btns = document.querySelectorAll('.filter-btn');
+            
+            btns.forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+
+            cards.forEach(card => {
+                if(category === 'all' || card.getAttribute('data-type') === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Имитация счетчика онлайна
+        setInterval(() => {
+            const count = document.getElementById('user-count');
+            let val = parseInt(count.innerText);
+            val += Math.floor(Math.random() * 5) - 2;
+            count.innerText = val;
+        }, 3000);
+
+        // Имитация процесса загрузки
+        function startDownload(e) {
+            e.preventDefault();
+            const url = e.target.href;
+            const modal = document.getElementById('downloadModal');
+            const status = document.getElementById('modal-status');
+            const tip = document.getElementById('modal-tip');
+            
+            modal.style.display = 'flex';
+            
+            setTimeout(() => { status.innerText = "ГЕНЕРАЦИЯ ПРЯМОЙ ССЫЛКИ..."; tip.innerText = "Сервер выделяет канал 1 Гбит/с..."; }, 1000);
+            setTimeout(() => { status.innerText = "ГОТОВО! НАЧАЛО ЗАГРУЗКИ..."; }, 2500);
+            
+            setTimeout(() => {
+                window.location.href = url;
+                modal.style.display = 'none';
+                // Сброс модалки
+                status.innerText = "ПРОВЕРКА ФАЙЛА...";
+                tip.innerText = "Подожди, система проверяет архив на наличие вирусов (0/54)";
+            }, 3500);
+        }
+    </script>
 </body>
 </html>
